@@ -130,17 +130,17 @@ class LinkedList
   end
 end
 
-linked_list = LinkedList.new()
-linked_list.append(10)
-linked_list.append(15)
-linked_list.append(6)
-puts linked_list.to_s
-puts linked_list.get(1)
-puts linked_list.add(1, 8)
-puts linked_list.add(0, 9)
-puts linked_list.add(linked_list.size, 7)
-puts linked_list.remove(2)
-puts linked_list.remove(4)
-puts linked_list.remove(0)
-puts linked_list.pop
-puts linked_list.prepend(11)
+# linked_list = LinkedList.new()
+# linked_list.append(10)
+# linked_list.append(15)
+# linked_list.append(6)
+# puts linked_list.to_s
+# puts linked_list.get(1)
+# puts linked_list.add(1, 8)
+# puts linked_list.add(0, 9)
+# puts linked_list.add(linked_list.size, 7)
+# puts linked_list.remove(2)
+# puts linked_list.remove(4)
+# puts linked_list.remove(0)
+# puts linked_list.pop
+# puts linked_list.prepend(11)
