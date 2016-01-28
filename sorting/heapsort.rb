@@ -35,13 +35,17 @@
 list = [10, 1, 9, 8, 7]
 
 def heap_sort(list)
+  temp_list = Array.new(list)
   sorted_list = []
-  list.length.times do
-    min = list.min
-    list.find(min)
-
-    sorted_list.append(min)
+  temp_list.length.times do
+    min = temp_list.min
+    sorted_list << min
+    min_index = temp_list.index(min)
+    temp_list.delete_at(min_index)
   end
+  puts list
+  puts temp_list
+  return sorted_list
 end
-heap_sort(list)
+puts heap_sort(list)
 
