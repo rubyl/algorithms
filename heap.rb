@@ -1,15 +1,21 @@
 class Heap
 
 # create array
-  def initialize
+  def initialize(comparison_block = nil)
   #   pass in array and construct full heap from the array
     @array = Array.new
     @array.unshift(nil)
+    if comparison_block
+      @comparison_block = comparison_block
+    else
+      @comparison_block = lambda do |a, b|
+        a >= b
+      end
+    end
   end
 
 # get size
   def size
-    puts @array.inspect
     @array.length - 1
   end
 
@@ -22,7 +28,6 @@ class Heap
     pop_value = peek
     @array[1] = @array[@array.length-1]
     @array.pop
-    puts @array.inspect
     downheap(1)
     return pop_value
   end
@@ -52,7 +57,7 @@ class Heap
     current_value = @array[current_index] # 8
     parent_index = get_parent_index(current_index)
     parent_value = @array[parent_index]
-    if current_value > parent_value
+    if @comparison_block[current_value, parent_value]
       swap(parent_index, current_index)
       current_index = parent_index
       upheap(current_index)
@@ -70,16 +75,16 @@ class Heap
       return
     end
     if left_value != nil && right_value == nil
-      if current_value <= left_value
+      if @comparison_block[left_value, current_value]
         swap(left_index, current_index)
       end
       return
     end
-    if left_value >= current_value && left_value >= right_value
+    if @comparison_block[left_value, current_value] && @comparison_block[left_value, right_value]
       swap(left_index, current_index)
       current_index = left_index
       downheap(current_index)
-    elsif right_value >= current_value && right_value >= left_value
+    elsif @comparison_block[right_value, current_value] && @comparison_block[right_value, left_value]
       swap(right_index, current_index)
       current_index = right_index
       downheap(current_index)
@@ -111,5 +116,4 @@ class Heap
     end
     return parent_index
   end
-
 end

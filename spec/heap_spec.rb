@@ -106,4 +106,69 @@ describe Heap do
     end
   end
 
+  describe "new comparison block" do
+
+    describe "alpabetical comparison" do
+      let(:comparison_block) {lambda do |a, b|
+        a.downcase <= b.downcase
+      end
+      }
+      let(:heap) { Heap.new(comparison_block)}
+      describe "remove 4 elements" do
+        before do
+          heap.insert("Michelle")
+          heap.insert("Ruby")
+          heap.insert("Aaron")
+          heap.insert("Sean")
+        end
+        it{
+          expect(heap.size()).to eq 4
+          poped_value = heap.pop()
+          expect(heap.size()).to eq 3
+          expect(poped_value).to eq "Aaron"
+          poped_value = heap.pop()
+          expect(heap.size()).to eq 2
+          expect(poped_value).to eq "Michelle"
+          poped_value = heap.pop()
+          expect(heap.size()).to eq 1
+          expect(poped_value).to eq "Ruby"
+          poped_value = heap.pop()
+          expect(heap.size()).to eq 0
+          expect(poped_value).to eq "Sean"
+        }
+      end
+    end
+
+    describe "object comparison" do
+      let(:comparison_block) {lambda do |person_a, person_b|
+        person_a['age'] < person_b['age']
+      end
+      }
+      let(:heap) { Heap.new(comparison_block)}
+      describe "remove 4 elements" do
+        before do
+          heap.insert({'age' => 34})
+          heap.insert({'age' => 16})
+          heap.insert({'age' => 10})
+          heap.insert({'age' => 80})
+        end
+        it{
+          expect(heap.size()).to eq 4
+          person = heap.pop()
+          expect(heap.size()).to eq 3
+          expect(person['age']).to eq 10
+          person = heap.pop()
+          expect(heap.size()).to eq 2
+          expect(person['age']).to eq 16
+          person = heap.pop()
+          expect(heap.size()).to eq 1
+          expect(person['age']).to eq 34
+          person = heap.pop()
+          expect(heap.size()).to eq 0
+          expect(person['age']).to eq 80
+        }
+      end
+    end
+  end
+
 end
