@@ -171,4 +171,37 @@ describe Heap do
     end
   end
 
+  describe "breadth first search" do
+    let(:heap) { Heap.new()}
+    describe "with 4 elements" do
+      before do
+        heap.insert(10)
+        heap.insert(16)
+        heap.insert(34)
+        heap.insert(80)
+      end
+      it{
+        expect(heap.breadth_first_search_to_s()).to eq '80, 34, 16, 10, '
+      }
+    end
+  end
+  describe "breadth first search tree to string" do
+    let(:heap) { Heap.new()}
+    describe "with 4 elements" do
+      before do
+        heap.insert(10)
+        heap.insert(16)
+        heap.insert(34)
+        heap.insert(80)
+        heap.insert(55)
+        heap.insert(7)
+        heap.insert(80)
+        heap.insert(30)
+        heap.insert(74)
+      end
+      it{
+        expect(heap.breadth_first_search_to_tree()).to eq "80\n\n34\t16\n\n10"
+      }
+    end
+  end
 end

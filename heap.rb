@@ -47,10 +47,70 @@ class Heap
     @array.to_s()
   end
 
+  def breadth_first_search_to_tree
+    str = ''
+    root_index = 1
+    q = Queue.new
+    if self.size == 0
+      return ''
+    end
+    q.push root_index
+    current_right_most_index = root_index
+    while ! q.empty?
+      current_index = q.pop
+      current_index_value = @array[current_index]
+      right_child_index = get_right_child_index(current_index)
+      right_child_value = @array[right_child_index]
+      left_child_index = get_left_child_index(current_index)
+      left_child_value = @array[left_child_index]
+      if left_child_value != nil
+        q.push left_child_index
+      end
+      if right_child_value != nil
+        q.push right_child_index
+      end
+      str << '[' << current_index.to_s << ']' << current_index_value.to_s
+      if current_index == current_right_most_index
+        str << "\n\n"
+        current_right_most_index = right_child_index
+      else
+        if ! q.empty?
+          str << "\t"
+        end
+      end
+    end
+    puts str
+    return str
+  end
+
+  def breadth_first_search_to_s
+    str = ''
+    current_index = 1
+    current_value = @array[current_index]
+    q = Queue.new
+    if current_value != nil
+      q.push(current_index)
+    end
+    while q.size > 0
+      current_index = q.pop
+      left_child_index = get_left_child_index(current_index)
+      right_child_index = get_right_child_index(current_index)
+      left_child_value = @array[left_child_index]
+      right_child_value = @array[right_child_index]
+      if left_child_value != nil
+        q.push left_child_index
+      end
+      if right_child_value != nil
+        q.push right_child_index
+      end
+      str << @array[current_index].to_s + ', '
+    end
+    return str
+  end
+
   private
 # upheap
   def upheap(current_index)
-
     if(current_index == 1)
       return
     end
